@@ -1,0 +1,14 @@
+.login-container {
+  height: 100vh;
+  background: #f0f2f5;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+}
+
+input::placeholder {
+  color: #999;
+}

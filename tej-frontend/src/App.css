@@ -1,0 +1,15 @@
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  background-color: #a5b6a3; /* same as form bg */
+  font-family: "Times New Roman", serif;
+}
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  flex: 1;
+}

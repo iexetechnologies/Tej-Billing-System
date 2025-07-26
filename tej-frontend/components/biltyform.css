@@ -1,0 +1,24 @@
+/* Bilty page main container */
+.bilty-page-container {
+  background-color: #a5b6a3; /* muted greenish-blue */
+  min-height: 100vh;
+  padding: 20px;
+  font-family: "Times New Roman", serif;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Label styling - visually distinct but not too bold */
+.label-bg {
+  background-color: #729dc8; /* soft steel blue */
+  font-weight: 600;
+  color: #010101;
+  padding: 4px 8px;
+  display: inline-block;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-family: "Times New Roman", serif;
+  line-height: 1.4;
+  white-space: nowrap;
+}

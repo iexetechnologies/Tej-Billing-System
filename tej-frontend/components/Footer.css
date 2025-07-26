@@ -1,0 +1,6 @@
+.custom-footer {
+  width: 100%;
+  position: static;
+  bottom: 0;
+  background-color: #212529;
+}

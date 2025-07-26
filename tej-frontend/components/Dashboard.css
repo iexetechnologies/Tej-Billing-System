@@ -1,0 +1,10 @@
+.dashboard-container {
+  height: 100vh;
+  background: #f0f2f5;
+}
+
+.dashboard-box {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+}
