@@ -1,29 +1,71 @@
-/* Bilty page main container */
+/* Main container */
 .bilty-page-container {
-  background-color: #a5b6a3; /* muted greenish-blue */
+  background-color: #eaf1ea; /* light muted green */
   min-height: 100vh;
-  padding: 20px;
-  font-family: "Times New Roman", serif;
+  padding: 30px;
+  font-family: "Segoe UI", sans-serif;
   box-sizing: border-box;
   overflow-x: hidden;
 }
 
-/* Label styling - visually distinct but not too bold */
+/* Grid container */
+.bilty-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* responsive 4-col layout */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Input group (label + input) */
+.bilty-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling */
 .label-bg {
-  background-color: #729dc8; /* soft steel blue */
+  background-color: #3e7cb1; /* soft steel blue */
+  color: #fff;
   font-weight: 600;
-  color: #010101;
-  padding: 4px 8px;
-  display: inline-block;
+  padding: 6px 10px;
   border-radius: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   font-size: 14px;
-  font-family: "Times New Roman", serif;
-  line-height: 1.4;
   white-space: nowrap;
 }
 
+/* Input / Select */
+.bilty-input-group input,
+.bilty-input-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 15px;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.bilty-input-group input:focus,
+.bilty-input-group select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Section styling */
 .location-section {
   background-color: #f5f9ff;
-  border-left: 5px solid #007bff;
+  border-left: 4px solid #007bff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+/* Responsive header */
+.bilty-header {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #2f4f4f;
+  margin-bottom: 30px;
 }

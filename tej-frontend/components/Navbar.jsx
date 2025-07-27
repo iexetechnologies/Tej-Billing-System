@@ -24,14 +24,22 @@ const CustomNavbar = () => {
 
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-
+            {/* ✅ New Dropdown for Managing Master Data */}
+            <NavDropdown title="Dashboard" id="manage-dropdown">
+              <NavDropdown.Item as={Link} to="/add-location">Add Location</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/add-consignee">Add Consignee</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/add-vehicle-type">Add Vehicle Type</NavDropdown.Item>
+            </NavDropdown>
             <NavDropdown title="Bilty" id="bilty-dropdown">
               <NavDropdown.Item as={Link} to="/bilty">Create Bilty</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/recent">Recent Uploads</NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link as={Link} to="/fund-transfer">Fund Transfer</Nav.Link>
+            <NavDropdown title="Fund Transfer" id="Fund-transfer">
+              <NavDropdown.Item as={Link} to="/">Add Account no</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/">Add</NavDropdown.Item>
+            </NavDropdown>
+
             <Nav.Link as={Link} to="/challan">Challan</Nav.Link>
             <Nav.Link as={Link} to="/voucher">Voucher</Nav.Link>
             <Nav.Link as={Link} to="/bill">Bill</Nav.Link>
