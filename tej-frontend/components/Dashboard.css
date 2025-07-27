@@ -7,4 +7,182 @@
   width: 100%;
   max-width: 400px;
   background: #ffffff;
+}.home-container {
+  padding: 20px;
+  font-family: serif;
+  background-color: #f0f4f8;
+  min-height: 100vh;
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f0f0f0; /* ✅ Light grey or any other color */
+  color: #333;
+}
+
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emp-id {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* 📛 Employee name */
+.emp-name {
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* 👤 Profile + Name layout */
+.profile-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  color: #0b0d10;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.profile-icon:hover {
+  transform: scale(1.05);
+}
+
+/* 🔽 Dropdown */
+.profile-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 180px;
+  background: white;
+  color: #333;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.profile-info {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 8px 0;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f;
+}
+
+
+.logout-button:hover {
+  background-color: #f0f0f0;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #9c9c9c;
+  color: white;
+  padding: 20px;
+  position: relative;
+}
+
+.home-header h1 {
+  font-size: 28px;
+  color: #080b10;
+  font-family: serif;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 30px;
+  padding: 30px;
+  max-width: 2000px;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .card-grid {
+    grid-template-columns: 1fr; /* 1 per row on phones */
+  }
+}
+
+.card {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  height: 180px; /* ✅ Fixed height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  background-color: #e6f4ff;
+}
+
+.icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.label {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.card-image {
+  width: 150px;         /* or adjust to your preferred size */
+  height: 150px;
+  object-fit: cover;   /* keeps image aspect ratio, prevents stretching */
+  margin-bottom: 10px; /* spacing between image and label */
+  border-radius: 8px;  /* optional: for rounded edges */
 }

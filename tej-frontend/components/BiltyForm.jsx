@@ -46,7 +46,7 @@ const BiltyForm = () => {
   const today = new Date().toISOString().split('T')[0];
 
   const [selectedLocation, setSelectedLocation] = useState('');
-  const [showLocationModal, setShowLocationModal] = useState(true);
+
   const [showPopup, setShowPopup] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -122,31 +122,28 @@ const BiltyForm = () => {
 
   return (
     <div className="bilty-page-container">
-      {/* Location Modal */}
-      <Modal show={showLocationModal} centered backdrop="static">
-        <Modal.Header>
-          <Modal.Title>Select Location</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="d-flex flex-wrap gap-2 justify-content-center">
-            {locations.map((loc) => (
-              <Button
-                key={loc}
-                variant="outline-primary"
-                onClick={() => handleLocationSelect(loc.toLowerCase())}
-              >
-                {loc}
-              </Button>
-            ))}
-          </div>
-        </Modal.Body>
-      </Modal>
 
       <h3 className="mb-4 text-dark fw-bold bg-white p-2 rounded shadow-sm text-center">
         Create Bilty {selectedLocation ? ` - ${selectedLocation.toUpperCase()}` : ''}
       </h3>
 
       <Form onSubmit={handleSubmit}>
+        <Form.Group as={Col} md={4} className="mb-3">
+  <Form.Label className="label-bg">Location *</Form.Label>
+  <Form.Select
+    name="location"
+    value={selectedLocation}
+    onChange={(e) => setSelectedLocation(e.target.value)}
+    required
+    className="form-select-sm bg-light"
+  >
+    <option value="">Select</option>
+    {locations.map((loc) => (
+      <option key={loc} value={loc.toLowerCase()}>{loc}</option>
+    ))}
+  </Form.Select>
+</Form.Group>
+
         <Row>
           {[
             ['Consignment No *', 'consignmentNo', 'text'],

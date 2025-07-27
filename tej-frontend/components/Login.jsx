@@ -1,28 +1,31 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Import CSS for custom styling
+import './Login.css';
 
 export default function Login() {
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const hardcodedUser = {
+    username: 'admin',
+    password: 'admin123'
+  };
 
-  const handleSubmit = async e => {
+  const handleChange = e =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = e => {
     e.preventDefault();
-    const res = await fetch('https://tej-backend-production.up.railway.app/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
-    });
 
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem('token', data.token);
+    if (
+      form.username === hardcodedUser.username &&
+      form.password === hardcodedUser.password
+    ) {
+      localStorage.setItem('user', JSON.stringify({ username: form.username }));
       navigate('/bilty');
     } else {
-      setError(data.error || "Login failed");
+      setError('Invalid username or password');
     }
   };
 
@@ -51,10 +54,12 @@ export default function Login() {
             />
           </div>
           {error && <p className="text-danger text-center">{error}</p>}
-          <button type="submit" className="btn btn-primary w-100">Login</button>
+          <button type="submit" className="btn btn-primary w-100">
+            Login
+          </button>
         </form>
         <p className="text-center mt-3 mb-0">
-          Don’t have an account? <a href="/register">Register</a>
+          Don’t have an account? <span className="text-muted">[Disabled]</span>
         </p>
       </div>
     </div>

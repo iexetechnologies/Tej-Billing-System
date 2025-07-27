@@ -22,3 +22,8 @@
   line-height: 1.4;
   white-space: nowrap;
 }
+
+.location-section {
+  background-color: #f5f9ff;
+  border-left: 5px solid #007bff;
+}
