@@ -4,7 +4,9 @@ import Select from 'react-select';
 import { FaSearch } from 'react-icons/fa';
 import { components } from 'react-select';
 import './biltyform.css';
+import CustomNavbar from './Navbar.jsx';
 import axios from 'axios';
+import Navbar from './Navbar.jsx';
 
 import {
   FROM,
@@ -15,6 +17,9 @@ import {
   VehicleType,
   MaterialType
 } from '../assets/dropdowndata';
+
+
+
 
 const DropdownIndicator = (props) => (
   <components.DropdownIndicator {...props}>
@@ -121,6 +126,8 @@ const BiltyForm = () => {
   };
 
   return (
+    <>
+      {/* <CustomNavbar/> */}
     <div className="bilty-page-container">
 
       <h3 className="mb-4 text-dark fw-bold bg-white p-2 rounded shadow-sm text-center">
@@ -167,7 +174,7 @@ const BiltyForm = () => {
                 <Form.Label className="label-bg">{label}</Form.Label>
                 {type === 'text' || type === 'date' ? (
                   <Form.Control
-                    type={type}
+                  type={type}
                     name={name}
                     value={formData[name]}
                     onChange={handleChange}
@@ -189,8 +196,8 @@ const BiltyForm = () => {
                   </Form.Select>
                 ) : (
                   <Select
-                    name={name}
-                    options={options.map((item) => ({ label: item, value: item }))}
+                  name={name}
+                  options={options.map((item) => ({ label: item, value: item }))}
                     value={formData[name] ? { label: formData[name], value: formData[name] } : null}
                     onChange={(selected) => handleSelectChange(name, selected)}
                     isClearable
@@ -221,6 +228,7 @@ const BiltyForm = () => {
         </Modal.Footer>
       </Modal>
     </div>
+                    </>
   );
 };
 
