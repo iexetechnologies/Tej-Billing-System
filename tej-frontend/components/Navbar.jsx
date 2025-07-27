@@ -50,6 +50,15 @@ const CustomNavbar = () => {
             <Nav.Item className="mt-2 text-light">
               👤User : <strong>{username || 'Guest'}</strong>
             </Nav.Item>
+            <button
+  onClick={() => {
+    localStorage.removeItem('isAuthenticated');
+    window.location.reload(); // or use navigation to redirect
+  }}
+  style={{ marginLeft: 10 , width: '100px', height: '30px', backgroundColor: '#dc3545', color: '#fff', border: 'none', borderRadius: '5px' }}
+>
+  Logout
+</button>
           </Nav>
         </Navbar.Collapse>
       </Container>

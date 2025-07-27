@@ -11,6 +11,7 @@ import Footer from '../components/Footer.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; // optional: for global styles like page layout
 import RecentUploads from '../components/RecentUploads';
+import ProtectedRoute from '../components/ProtectedRoute.jsx';
 
 function App() {
   return (
@@ -23,13 +24,28 @@ function App() {
         {/* Page content area */}
         <main className="content-wrap flex-grow-1 p-4">
           <Routes>
-            <Route path="/bilty" element={<BiltyForm />} />
-            <Route path="/recent" element={<RecentUploads />} />
+            <Route path="/bilty" element={
+              <ProtectedRoute>
+                <BiltyForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/recent" element={
+              <ProtectedRoute>
+                <RecentUploads />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/login" element={<ProtectedRoute />} />
           </Routes>
         </main>
 

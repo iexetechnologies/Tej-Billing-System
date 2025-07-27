@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css'; // ← Add this line to apply custom styles
+import CustomNavbar from './Navbar';
 
 export default function Dashboard() {
+
+    // <CustomNavbar/>
+  
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -31,6 +35,9 @@ export default function Dashboard() {
   };
 
   return user ? (
+    <>
+    <CustomNavbar/>
+    
     <div className="dashboard-container d-flex justify-content-center align-items-center">
       <div className="dashboard-box p-4 shadow rounded text-center">
         <h3 className="mb-3">Welcome, {user.name}!</h3>
@@ -40,11 +47,14 @@ export default function Dashboard() {
         </button>
       </div>
     </div>
+    </>
   ) : (
+    
+    
     <div className="dashboard-container d-flex justify-content-center align-items-center">
       <div className="dashboard-box text-center">
         <p>Loading...</p>
       </div>
     </div>
   );
-}
+  }
