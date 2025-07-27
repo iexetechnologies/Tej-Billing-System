@@ -9,22 +9,21 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// 🏢 Location-based database configs
+// 📦 Multiple DB configs (location-specific + tej system)
 const dbConfigs = {
   pune: { user: 'postgres', host: 'localhost', database: 'bilty_pune', password: 'admin123', port: 5432 },
   mumbai: { user: 'postgres', host: 'localhost', database: 'bilty_mumbai', password: 'admin123', port: 5432 },
   bangalore: { user: 'postgres', host: 'localhost', database: 'bilty_bangalore', password: 'admin123', port: 5432 },
   delhi: { user: 'postgres', host: 'localhost', database: 'bilty_delhi', password: 'admin123', port: 5432 },
+  tej_system: { user: 'postgres', host: 'localhost', database: 'tej_system', password: 'admin123', port: 5432 }, // 🔐 Add your user db here
 };
 
-// 🔌 Utility: get DB pool for a location
 const getPool = (location) => {
   const config = dbConfigs[location?.toLowerCase()];
   if (!config) throw new Error('Invalid location');
   return new Pool(config);
 };
 
-// 🧼 Sanitize input
 const sanitizeInput = (value, type = 'string') => {
   if (value === '') return null;
   if (type === 'int') return parseInt(value);
@@ -36,29 +35,43 @@ app.get('/', (req, res) => {
   res.send('🚚 Bilty API is running');
 });
 
+// 🧑‍💼 Register user route
+app.post('/register', async (req, res) => {
+  const pool = getPool('bilty_pune');
+  const { username, password, role } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password required' });
+  }
+
+  try {
+    const existingUser = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+    if (existingUser.rows.length > 0) {
+      return res.status(409).json({ error: 'Username already exists' });
+    }
+
+    await pool.query(
+      'INSERT INTO users (username, password, role) VALUES ($1, $2, $3)',
+      [username, password, role || 'user']
+    );
+
+    res.status(201).json({ message: '✅ User registered successfully' });
+  } catch (err) {
+    console.error('❌ Error during registration:', err.message);
+    res.status(500).json({ error: 'Server error during registration' });
+  }
+});
+
 // 📥 Create Bilty entry
 app.post('/api/bilty/:location', async (req, res) => {
   const { location } = req.params;
 
   try {
     const pool = getPool(location);
-
     const {
-      consignmentNo,
-      consignmentDate,
-      movementType,
-      from,
-      to,
-      consignorName,
-      consignorGST,
-      consigneeName,
-      consigneeGST,
-      vehicleType,
-      vehicleNo,
-      quantity,
-      materialType,
-      invoiceNo,
-      ewayBillNo,
+      consignmentNo, consignmentDate, movementType, from, to,
+      consignorName, consignorGST, consigneeName, consigneeGST,
+      vehicleType, vehicleNo, quantity, materialType, invoiceNo, ewayBillNo
     } = req.body;
 
     const result = await pool.query(
@@ -95,7 +108,7 @@ app.post('/api/bilty/:location', async (req, res) => {
   }
 });
 
-// 📤 Fetch Bilty entries (with optional date filter)
+// 📤 Fetch Bilty entries
 app.get('/api/bilty/:location', async (req, res) => {
   const { location } = req.params;
   const { from, to } = req.query;
@@ -105,22 +118,12 @@ app.get('/api/bilty/:location', async (req, res) => {
 
     let query = `
       SELECT 
-        id,
-        consignment_no AS "consignmentNo",
-        consignment_date AS "consignmentDate",
-        movement_type AS "movementType",
-        from_location AS "from",
-        to_location AS "to",
-        consignor_name AS "consignorName",
-        consignor_gst_no AS "consignorGST",
-        consignee_name AS "consigneeName",
-        consignee_gst_no AS "consigneeGST",
-        vehicle_type AS "vehicleType",
-        vehicle_no AS "vehicleNo",
-        quantity,
-        material_type AS "materialType",
-        invoice_no AS "invoiceNo",
-        eway_bill_no AS "ewayBillNo"
+        id, consignment_no AS "consignmentNo", consignment_date AS "consignmentDate",
+        movement_type AS "movementType", from_location AS "from", to_location AS "to",
+        consignor_name AS "consignorName", consignor_gst_no AS "consignorGST",
+        consignee_name AS "consigneeName", consignee_gst_no AS "consigneeGST",
+        vehicle_type AS "vehicleType", vehicle_no AS "vehicleNo", quantity,
+        material_type AS "materialType", invoice_no AS "invoiceNo", eway_bill_no AS "ewayBillNo"
       FROM consignments`;
 
     const values = [];
@@ -146,60 +149,23 @@ app.put('/api/bilty/:location/:id', async (req, res) => {
 
   try {
     const pool = getPool(location);
-
     const {
-      consignmentNo,
-      consignmentDate,
-      movementType,
-      from,
-      to,
-      consignorName,
-      consignorGST,
-      consigneeName,
-      consigneeGST,
-      vehicleType,
-      vehicleNo,
-      quantity,
-      materialType,
-      invoiceNo,
-      ewayBillNo,
+      consignmentNo, consignmentDate, movementType, from, to,
+      consignorName, consignorGST, consigneeName, consigneeGST,
+      vehicleType, vehicleNo, quantity, materialType, invoiceNo, ewayBillNo
     } = req.body;
 
     await pool.query(
       `UPDATE consignments SET
-        consignment_no = $1,
-        consignment_date = $2,
-        movement_type = $3,
-        from_location = $4,
-        to_location = $5,
-        consignor_name = $6,
-        consignor_gst_no = $7,
-        consignee_name = $8,
-        consignee_gst_no = $9,
-        vehicle_type = $10,
-        vehicle_no = $11,
-        quantity = $12,
-        material_type = $13,
-        invoice_no = $14,
-        eway_bill_no = $15
+        consignment_no = $1, consignment_date = $2, movement_type = $3,
+        from_location = $4, to_location = $5, consignor_name = $6, consignor_gst_no = $7,
+        consignee_name = $8, consignee_gst_no = $9, vehicle_type = $10, vehicle_no = $11,
+        quantity = $12, material_type = $13, invoice_no = $14, eway_bill_no = $15
       WHERE id = $16`,
       [
-        consignmentNo,
-        consignmentDate,
-        movementType,
-        from,
-        to,
-        consignorName,
-        consignorGST,
-        consigneeName,
-        consigneeGST,
-        vehicleType,
-        vehicleNo,
-        quantity,
-        materialType,
-        invoiceNo,
-        ewayBillNo,
-        id,
+        consignmentNo, consignmentDate, movementType, from, to,
+        consignorName, consignorGST, consigneeName, consigneeGST,
+        vehicleType, vehicleNo, quantity, materialType, invoiceNo, ewayBillNo, id
       ]
     );
 
@@ -210,7 +176,7 @@ app.put('/api/bilty/:location/:id', async (req, res) => {
   }
 });
 
-// 🟢 Start the server
+// 🟢 Start server
 app.listen(port, () => {
   console.log(`🚀 Bilty backend running at http://localhost:${port}`);
 });

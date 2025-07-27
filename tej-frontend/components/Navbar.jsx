@@ -48,7 +48,7 @@ const CustomNavbar = () => {
 
           <Nav className="ms-auto">
             <Nav.Item className="mt-2 text-light">
-              👤 Logged in as: <strong>{username || 'Guest'}</strong>
+              👤User : <strong>{username || 'Guest'}</strong>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>

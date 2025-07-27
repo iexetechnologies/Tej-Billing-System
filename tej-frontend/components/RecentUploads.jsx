@@ -163,10 +163,11 @@ export default function RecentUploads() {
         </div>
       </div>
 
-      {/* Optional Global Export Buttons (can remove if exporting row-wise only) */}
-      <div className="mb-3 d-flex justify-content-end gap-3">
-        <button className="btn btn-success" onClick={exportToCSV}>📁 Export to CSV</button>
-      </div>
+        <div className="mb-3 d-flex justify-content-end gap-3">
+          <button className="btn btn-success btn-sm w-auto" onClick={exportToCSV}>
+            📁 Export to CSV
+          </button>
+        </div>
 
       {/* Table */}
       {entries.length === 0 ? (
